@@ -1,0 +1,40 @@
+version: '3'
+services:
+  web:
+    build: web
+    container_name: web
+    ports:
+      - "8000:8000"
+    volumes:
+      - $APPDIR/logs/web:/var/log
+    environment:
+      WEB_DEBUG_MODE: 1 #1 True, 2 False
+      DATABASE_HOSTNAME: db
+      MQ_HOSTNAME: mq
+    restart: always
+    depends_on:
+      - db
+      - mq
+
+  mq:
+    image: rabbitmq:alpine
+    container_name: mq
+    ports:
+      - "5672:5672"
+    volumes:
+      - $APPDIR/logs/mq:/var/log
+    restart: always
+
+  db:
+    image: postgres:alpine
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - $APPDIR/logs/db:/var/log
+    #  - $APPDIR/postgresql/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: taskdb
+    restart: always
