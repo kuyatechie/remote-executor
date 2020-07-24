@@ -768,9 +768,3 @@ ftp component: These can be set via supervisord.conf. Default values are:
 3. FTP_HOSTNAME            "localhost"
 4. FTP_PORT                2121
 5. FTP_DIRECTORY           "/homedir/"
-
-
-Developer:
-----------
-Arvin E. Cudanin - DevOps Engineer
-email: arvin.cudanin@gmail.com
